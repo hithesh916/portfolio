@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>My Portfolio</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', sans-serif;
+            background-color: #000;
+            color: #fff;
+            margin: 0;
+        }
+        header {
+            background-color: #000;
+            color: white;
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .menu {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            margin-right: 30px;
+        }
+        .menu ul {
+            list-style: none;
+            display: flex;
+        }
+        .menu li {
+            margin: 0 20px;
+        }
+        .menu a {
+            text-decoration: none;
+            color: white;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        .menu a:hover {
+            color: #00f7ff;
+        }
+        .section {
+            padding: 50px;
+            text-align: center;
+        }
+        .home {
+            background-color: #000;
+            color: #00f7ff;
+        }
+        .about {
+            background-color: #fff;
+            color: #333;
+        }
+        .resume {
+            background-color: #f7f7f7;
+        }
+        .timeline {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .timeline-item {
+            position: relative;
+            margin-bottom: 50px;
+            cursor: pointer;
+        }
+        .timeline-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #00f7ff;
+            padding: 15px 20px;
+            border-radius: 10px;
+            color: black;
+            font-size: 1.2rem;
+            transition: background-color 0.3s;
+        }
+        .timeline-title i {
+            transform: rotate(0deg);
+            transition: transform 0.3s;
+            color: white;
+        }
+        .timeline-details {
+            display: none;
+            padding: 15px 20px;
+            background-color: #f7f7f7;
+            color: #333;
+            border-radius: 0 0 10px 10px;
+        }
+        .timeline-item.active .timeline-title i {
+            transform: rotate(180deg);
+        }
+        .timeline-item.active .timeline-details {
+            display: block;
+        }
+        .contact {
+            background-color: #111;
+            color: white;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #ff9900;
+            color: #000;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .button:hover {
+            background-color: #00f7ff;
+        }
+        .home-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap-reverse;
+            padding: 50px;
+        }
+        .image {
+            max-width: 200px;
+            margin-left: 600px;
+        }
+        .image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        }
+        .intro {
+            max-width: calc(50% - 230px);
+        }
+        .intro h1 {
+            font-size: 5rem;
+            margin-bottom: 5px;
+            color: #00f7ff;
+            white-space: nowrap;
+        }
+        .intro p {
+            font-size: 1.3rem;
+            color: #ccc;
+            margin-top: 5px;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+        .biography {
+            max-width: 100%;
+            padding: 50px;
+            background-color: #111;
+            color: #ccc;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+            margin-top: 30px;
+        }
+        .biography p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        .about {
+            display: flex;
+            justify-content: space-between;
+            padding: 50px;
+        }
+        .about-section {
+            flex: 1;
+            background-color: #111;
+            color: #ccc;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+            padding: 20px;
+            margin: 0 10px;
+            transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
+            cursor: pointer;
+        }
+        .about-section:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+            background-color: #222;
+        }
+        .about-section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+        .about-section p {
+            color: #ccc;
+        }
+        .contact-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .contact-info {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        }
+        .contact-info h2 {
+            font-size: 2rem;
+            color: black;
+            margin-bottom: 20px;
+        }
+        .contact-info p {
+            font-size: 1.2rem;
+            color: #777;
+            margin-bottom: 20px;
+        }
+        .contact-methods {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .contact-method {
+            display: flex;
+            align-items: center;
+            margin: 10px;
+        }
+        .contact-method i {
+            font-size: 1.5rem;
+            color: black;
+            margin-right: 10px;
+        }
+        .contact-method p, .contact-method a {
+            font-size: 1.2rem;
+            color: black;
+            margin: 0;
+            text-decoration: none;
+        }
+        .contact-method a:hover {
+            color: #00f7ff;
+        }
+        @media (max-width: 767px) {
+            .home-content {
+                flex-direction: column;
+                align-items: center;
+            }
+            .intro, .image {
+                width: 100%;
+                text-align: center;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="menu">
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">My Story</a></li>
+                <li><a href="#resume">More About Me</a></li>
+                <li><a href="#contact">Let's Talk</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Home Section -->
+    <section id="home" class="section home">
+        <div class="home-content">
+            <div class="intro">
+                <h1 id="typewriter">Hi,I'm Hithesh</h1>
+                <p>A Computer science Engineer</p>
+            </div>
+            <div class="image">
+                <img src="c:\Users\vshit\Downloads\WhatsApp Image 2025-05-10 at 6.33.10 PM.jpeg" width="400" alt="Image of a girl">
+            </div>
+        </div>
+        <div class="biography">
+            <p>Picture this: Ambitious computer science student with strong analytical, creative, and leadership skills, backed by online certifications and real-world project experience.
+                ...</p>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section about">
+        <div class="about-section">
+            <h2>Where it all started</h2>
+            <p>My story began 7761 days ago...</p>
+        </div>
+        <div class="about-section">
+            <h2>Where Am I Now</h2>
+            <p>In 2016, we embarked on the next phase...</p>
+        </div>
+        <div class="about-section">
+            <h2>Where I See Myself</h2>
+            <p>Now, with this scholarship in computer science engineer...</p>
+        </div>
+    </section>
+
+    <!-- Resume Section -->
+    <section id="resume" class="section resume">
+        <div class="resume-content">
+            <div class="resume-header">
+                <p>My professional journey and skills</p>
+            </div>
+            <div class="resume-timeline">
+                <div class="timeline-item" id="education">
+                    <div class="timeline-title">
+                        <h3>Education</h3>
+                        <i class="fas fa-angle-down"></i>
+                    </div>
+                    <div class="timeline-details">
+                        <p>Loyola matriculation higher Secondary school</p>
+                        <p>SRMIST , 2022</p>
+                    </div>
+                </div>
+                <div class="timeline-item" id="experience">
+                    <div class="timeline-title">
+                        <h3>Experience</h3>
+                        <i class="fas fa-angle-down"></i>
+                    </div>
+                    <div class="timeline-details">
+                        <p>UX/UI Trainingship, Ideas Academy</p>
+                        <p>Current</p>
+                        <p>Microsoft M365 Gig Academy Support Engineer Bootcamp</p>
+                        <p>2023</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section contact">
+        <div class="contact-content">
+            <div class="contact-info">
+                <h2>Get in Touch</h2>
+                <p>Did I get to convince you to have me on board...</p>
+                <div class="contact-methods">
+                    <div class="contact-method">
+                        <i class="fas fa-envelope"></i>
+                        <p><a href="mailto:zynbnr4@gmail.com">vshithesh@gmail.com</a></p>
+                    </div>
+                    <div class="contact-method">
+                        <i class="fas fa-phone"></i>
+                        <p>(+91) 6381188916</p>
+                    </div>
+                </div>
+                <div class="contact-methods">
+                    <div class="contact-method">
+                        <i class="fab fa-instagram"></i>
+                        <p><a href="https://www.instagram.com/hithesh.xlx?igsh=MXJyZmlvZzg4czk3dQ%3D%3D&utm_source=qr">Instagram</a></p>
+                    </div>
+                    <div class="contact-method">
+                        <i class="fab fa-facebook"></i>
+                        <p><a href="https://www.facebook.com/hitheshrajan">Facebook</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function typeWriter(text, i, interval, element) {
+            if (i < text.length) {
+                element.textContent += text.charAt(i);
+                i++;
+                setTimeout(function () {
+                    typeWriter(text, i, interval, element);
+                }, interval);
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const introHeading = document.getElementById("typewriter");
+            const text = "";
+            const interval = 100;
+            typeWriter(text, 0, interval, introHeading);
+
+            document.querySelectorAll('.menu a').forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    target.scrollIntoView({ behavior: 'smooth' });
+                });
+            });
+
+            document.querySelectorAll('.timeline-item').forEach(item => {
+                item.addEventListener('click', function () {
+                    this.classList.toggle('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
